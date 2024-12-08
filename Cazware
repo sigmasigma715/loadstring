@@ -1,0 +1,118 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Cazware",
+   LoadingTitle = "loading...",
+   LoadingSubtitle = "by Caz",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Cazware",
+      Discord = {},
+      Enabled = false,
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+   KeySystem = true, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Cazware",
+      Subtitle = "Key System",
+      Note = "private lock",
+      FileName = "Cazware", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = false , -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"Cazware on top"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+ 
+local MainTab = Window:CreateTab("Home", nill) -- Title, Image
+local MainSection = MainTab:CreateSection("Main")
+
+Rayfield:Notify({
+    Title = "Loaded",
+    Content = "Cazware",
+    Duration = 4,
+    Image = nill,
+    Actions = { -- Notification Buttons
+       Ignore = {
+          Name = "Okay!",
+          Callback = function()
+          print("The user tapped Okay!")
+       end
+    },
+ },
+ })
+
+ local Button = MainTab:CreateButton({
+    Name = "lock",
+    Callback = function()
+        getgenv().Aimbot = {
+            Status = true,
+            Keybind  = 'C',
+            Hitpart = 'HumanoidRootPart',
+            ['Prediction'] = {
+                X = 0.081299,
+                Y = 0.081299,
+            },
+        }
+         
+        if getgenv().AimbotRan then
+            return
+        else
+            getgenv().AimbotRan = true
+        end
+        -- make it reexecutable to update settings
+         
+         
+        local RunService = game:GetService('RunService')
+        local Workspace = game:GetService('Workspace')
+        local Players = game:GetService('Players')
+         
+        local LocalPlayer = Players.LocalPlayer
+        local Camera = Workspace.CurrentCamera
+        local Mouse = LocalPlayer:GetMouse()
+         
+        local Player = nil -- Our target player
+         
+         
+        local GetClosestPlayer = function() -- // Optimized GetClosestPlayer i believe?
+            local ClosestDistance, ClosestPlayer = 100000, nil
+            for _, Player : Player in pairs(Players:GetPlayers()) do
+                if Player.Name ~= LocalPlayer.Name and Player.Character and Player.Character:FindFirstChild('HumanoidRootPart') then
+                    local Root, Visible = Camera:WorldToScreenPoint(Player.Character.HumanoidRootPart.Position)
+                    if not Visible then
+                        continue
+                    end
+                    Root = (Vector2.new(Mouse.X, Mouse.Y) - Vector2.new(Root.X, Root.Y)).Magnitude
+                    if Root < ClosestDistance then
+                        ClosestPlayer = Player
+                        ClosestDistance = Root
+                    end
+                end
+            end
+            return ClosestPlayer
+        end
+         
+        Mouse.KeyDown:Connect(function(key) -- Get our closest player (toggle)
+            if key == Aimbot.Keybind:lower() then
+                Player = not Player and GetClosestPlayer() or nil
+            end
+        end)
+         
+        RunService.RenderStepped:Connect(function()
+            if not Player then
+                return
+            end
+            if not Aimbot.Status then
+                return
+            end
+            local Hitpart = Player.Character:FindFirstChild(Aimbot.Hitpart)
+            if not Hitpart then
+                return
+            end
+            Camera.CFrame = CFrame.new(Camera.CFrame.Position, Hitpart.Position + Hitpart.Velocity * Vector3.new(Aimbot.Prediction.X, Aimbot.Prediction.Y, Aimbot.Prediction.X))
+        end)
+    end,
+ })
+ 
+ 
