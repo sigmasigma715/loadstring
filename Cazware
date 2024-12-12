@@ -111,6 +111,13 @@ Rayfield:Notify({
                 return
             end
             Camera.CFrame = CFrame.new(Camera.CFrame.Position, Hitpart.Position + Hitpart.Velocity * Vector3.new(Aimbot.Prediction.X, Aimbot.Prediction.Y, Aimbot.Prediction.X))
+        end)
+    end,
+ })
+
+local Button = MainTab:CreateButton({
+   Name = "C tool",
+   Callback = function()
 getgenv().keytoclick = "C"
 tool = Instance.new("Tool")
 tool.RequiresHandle = false
@@ -144,8 +151,6 @@ player.CharacterRemoving:Connect(
         tool.Parent = game.Players.LocalPlayer.Backpack
     end
 )
-        end)
-    end,
- })
- 
+   end,
+})
  
