@@ -52,7 +52,7 @@ Rayfield:Notify({
             Hitpart = 'UpperTorso',
             ['Prediction'] = {
                 X = 0.082111232,
-                Y = 0.1,
+                Y = 0.082111232,
             },
         }
          
