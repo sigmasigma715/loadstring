@@ -51,8 +51,8 @@ Rayfield:Notify({
             Keybind  = 'C',
             Hitpart = 'UpperTorso',
             ['Prediction'] = {
-                X = 0.082111232,
-                Y = 0.082111232,
+                X = 0.07312,
+                Y = 0.07312,
             },
         }
          
