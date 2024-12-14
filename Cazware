@@ -49,7 +49,7 @@ Rayfield:Notify({
         getgenv().Aimbot = {
             Status = true,
             Keybind  = 'C',
-            Hitpart = 'Head',
+            Hitpart = 'Uppertorso',
             ['Prediction'] = {
                 X = 0.064231,
                 Y = 0.064231,
@@ -78,8 +78,8 @@ Rayfield:Notify({
         local GetClosestPlayer = function() -- // Optimized GetClosestPlayer i believe?
             local ClosestDistance, ClosestPlayer = 100000, nil
             for _, Player : Player in pairs(Players:GetPlayers()) do
-                if Player.Name ~= LocalPlayer.Name and Player.Character and Player.Character:FindFirstChild('Head') then
-                    local Root, Visible = Camera:WorldToScreenPoint(Player.Character.Head.Position)
+                if Player.Name ~= LocalPlayer.Name and Player.Character and Player.Character:FindFirstChild('Uppertorso') then
+                    local Root, Visible = Camera:WorldToScreenPoint(Player.Character.Uppertorso.Position)
                     if not Visible then
                         continue
                     end
