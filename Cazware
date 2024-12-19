@@ -51,8 +51,8 @@ local Button = MainTab:CreateButton({
     Keybind  = 'C',
     Hitpart = 'HumanoidRootPart',
     ['Prediction'] = {
-        X = 0.078931,
-        Y = 0.078931,
+        X = 0.063221,
+        Y = 0.063221,
     },
 }
  
