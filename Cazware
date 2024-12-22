@@ -44,7 +44,7 @@ Rayfield:Notify({
  })
 
 local Button = MainTab:CreateButton({
-   Name = "locl",
+   Name = "lock",
    Callback = function()
   getgenv().Aimbot = {
     Status = true,
